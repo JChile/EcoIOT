@@ -31,17 +31,17 @@ fun NavBar(
     ) {
         items.forEach{screen ->
             BottomNavigationItem(
-                unselectedContentColor = Color.Red,
+                unselectedContentColor = Color.White,
                 selectedContentColor = Color.Green,
-                selected = currentRoute == screen.route,
                 label = { Text(screen.title!!) },
                 icon = {
                     Icon(
                         painter = painterResource(id = screen.icon!!),
                         contentDescription = "icon",
+                        tint = if (currentRoute == screen.route) Color.Green else Color.White
                     )
                 },
-
+                selected = currentRoute == screen.route,
                 onClick = {
                     navController.navigate(screen.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
