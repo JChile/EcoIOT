@@ -26,7 +26,6 @@ fun HomeScreen() {
 
 @Composable
 fun MyMaps() {
-    val marker = LatLng(28.27225, -16.69165)
     val properties by remember { mutableStateOf(MapProperties(mapType = MapType.HYBRID)) }
     val uiSettings by remember { mutableStateOf(MapUiSettings(zoomControlsEnabled = false)) }
 
@@ -35,6 +34,5 @@ fun MyMaps() {
         properties = properties,
         uiSettings = uiSettings
     ) {
-        Marker(position = marker, title = "rrr", snippet = "Aun no estas")
     }
 }
