@@ -27,20 +27,20 @@ fun NavBar(
 ) {
     val currentRoute = CurrentRoute(navController)
     BottomNavigation(
-
+        backgroundColor = Color.Black,
     ) {
         items.forEach{screen ->
             BottomNavigationItem(
+                unselectedContentColor = Color.Red,
+                selectedContentColor = Color.Green,
                 selected = currentRoute == screen.route,
                 label = { Text(screen.title!!) },
                 icon = {
                     Icon(
                         painter = painterResource(id = screen.icon!!),
-                        contentDescription = "a"
+                        contentDescription = "icon",
                     )
                 },
-                unselectedContentColor = Color.White,
-                selectedContentColor = Color.Green,
 
                 onClick = {
                     navController.navigate(screen.route) {

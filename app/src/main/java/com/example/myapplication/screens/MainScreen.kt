@@ -38,10 +38,10 @@ fun NavigationHost(navController: NavHostController){
         startDestination = Routes.Home.route
     ) {
         composable(Routes.Home.route){
-
+            HomeScreen()
         }
         composable(Routes.Register.route){
-            
+            RegisterScreen()
         }
     }
 }
