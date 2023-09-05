@@ -1,17 +1,17 @@
 package com.example.myapplication.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.composables.NavBar
 import com.example.myapplication.navigation.Routes
+import com.example.myapplication.navigation.Routes.*
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -19,8 +19,9 @@ import com.example.myapplication.navigation.Routes
 fun MainScreen() {
     val navController = rememberNavController()
     val navigationsItems = listOf(
-        Routes.Home,
-        Routes.Register,
+        Home,
+        Register,
+        List
     )
     Scaffold(
         bottomBar = { NavBar(navController = navController, items = navigationsItems) }
@@ -35,13 +36,16 @@ fun NavigationHost(navController: NavHostController){
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Home.route
+        startDestination = Home.route
     ) {
-        composable(Routes.Home.route){
-
+        composable(Home.route){
+            HomeScreen()
         }
-        composable(Routes.Register.route){
-            
+        composable(Register.route){
+            RegisterScreen()
+        }
+        composable(Routes.List.route){
+            ListScreen()
         }
     }
 }
