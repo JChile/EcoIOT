@@ -6,7 +6,7 @@ import com.example.myapplication.navigation.Routes
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Text
-import androidx.compose.material3.Icon
+import androidx.compose.material.Icon
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
