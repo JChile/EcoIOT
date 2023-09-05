@@ -13,7 +13,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.navigation.Routes
+import com.example.myapplication.screens.MainScreen
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.google.android.gms.maps.UiSettings
 import com.google.android.gms.maps.model.LatLng
@@ -33,18 +37,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyMaps()
+                    MainScreen()
                 }
             }
         }
     }
 }
 
-@Composable
-fun NavigationHost(){
-    val navController = rememberNavController()
 
-}
 @Composable
 fun MyMaps() {
     val marker = LatLng(28.27225, -16.69165)

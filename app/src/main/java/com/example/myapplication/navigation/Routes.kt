@@ -1,7 +1,12 @@
 package com.example.myapplication.navigation
 
-sealed class Routes (val route: String) {
-    object Home: Routes("home")
-    object Options: Routes("options")
-    object ListRegisters: Routes("list_registers")
+import com.example.myapplication.R
+
+sealed class Routes (
+    val route: String,
+    val title: String,
+    val icon: Int
+    ) {
+    object Home: Routes(route = "home", title = "Home", icon = R.drawable.baseline_home)
+    object Register: Routes("register", title = "Registros", icon = R.drawable.baseline_location)
 }
