@@ -41,7 +41,7 @@ fun NavigationHost(navController: NavHostController){
 
         }
         composable(Routes.Register.route){
-
+            
         }
     }
 }
