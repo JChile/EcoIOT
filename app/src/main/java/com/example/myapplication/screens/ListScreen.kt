@@ -5,8 +5,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun RegisterScreen() {
+fun ListScreen() {
     Box(){
-        Text("aaa")
+        Text("bbb")
     }
 }
