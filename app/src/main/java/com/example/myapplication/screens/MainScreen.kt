@@ -12,11 +12,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.composables.NavBar
 import com.example.myapplication.navigation.Routes
 import com.example.myapplication.navigation.Routes.*
+import com.example.myapplication.paging.PagingViewData
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(viewModel: PagingViewData) {
     val navController = rememberNavController()
     val navigationsItems = listOf(
         Home,
@@ -26,13 +27,13 @@ fun MainScreen() {
     Scaffold(
         bottomBar = { NavBar(navController = navController, items = navigationsItems) }
     ) {
-        NavigationHost(navController = navController)
+        NavigationHost(navController, viewModel)
     }
 }
 
 
 @Composable
-fun NavigationHost(navController: NavHostController){
+fun NavigationHost(navController: NavHostController, viewModel: PagingViewData){
 
     NavHost(
         navController = navController,
@@ -42,7 +43,7 @@ fun NavigationHost(navController: NavHostController){
             HomeScreen()
         }
         composable(Register.route){
-            RegisterScreen()
+            RegisterScreen(viewModel)
         }
         composable(Routes.List.route){
             ListScreen()
