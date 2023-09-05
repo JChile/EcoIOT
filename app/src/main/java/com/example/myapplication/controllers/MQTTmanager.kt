@@ -24,7 +24,7 @@ class MQTTmanager(private val mqttServerUri: String,
                   private val qos: Int,
                   private val applicationContext: Context) {
     private lateinit var mqttClient: MqttClient
-    private lateinit var luminosity: String
+    private lateinit var data: String
 
     fun connect(responseSub: MutableState<String>) {
         try {
@@ -72,9 +72,9 @@ class MQTTmanager(private val mqttServerUri: String,
     private fun subscribeToTopic(responseSub: MutableState<String>) {
         if (mqttClient.isConnected) {
             mqttClient.subscribe(topic, qos) { _, message ->
-                luminosity = message.payload.toString(Charsets.UTF_8)
-                Log.d("TEST-MQTT", luminosity)
-                responseSub.value += luminosity
+                data = message.payload.toString(Charsets.UTF_8)
+                Log.d("TEST-MQTT", data)
+                responseSub.value += data
                 // Aquí puedes manejar la respuesta recibida del MQTT, enviarla a la actividad principal, etc.
             }
         }
