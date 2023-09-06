@@ -2,6 +2,7 @@ package com.example.myapplication.screens
 
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -17,10 +18,12 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,22 +62,38 @@ fun MyMaps(navController: NavHostController, viewModel3: CreateViewData) {
         position = CameraPosition.fromLatLngZoom(initialCameraPosition, 15f)
     }
 
-    var data = viewModel3.containerDataList.value
+    val mapData by rememberUpdatedState(viewModel3.containerDataList)
+    viewModel3.getDataFromApi()
+    var lastLongClickPosition by remember { mutableStateOf(LatLng(0.0, 0.0)) }
 
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+
+    LaunchedEffect(key1 = viewModel3) {
+        viewModel3.getDataFromApi()
+    }
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
+        cameraPositionState = cameraPositionState,
+        onMapLongClick = { latLng ->
+            lastLongClickPosition = latLng
+            Log.d("bbbb", lastLongClickPosition.toString())
+            val route = "create/${lastLongClickPosition.latitude.toFloat()}/${lastLongClickPosition.longitude.toFloat()}" // Asegúrate de tener el ID correcto aquí
+            navController.navigate(route)
+        }
     ) {
-        Marker(
-            title = "GAAA",
-            state = MarkerState(position = initialCameraPosition),
-            onInfoWindowClick = {
-                    marker ->
-                //navController.navigate(Routes.Detail.route)
-            }
-        )
+        mapData.value!!.forEach{ location ->
+            Marker(
+
+                title = location.descripcion,
+                state = MarkerState(position = LatLng(location.latitud,location.longitud)),
+                onInfoWindowClick = {
+                        marker ->
+                    //navController.navigate(Routes.Detail.route)
+                }
+            )
+        }
+
 
     }
     Box(
@@ -82,7 +101,8 @@ fun MyMaps(navController: NavHostController, viewModel3: CreateViewData) {
         contentAlignment = Alignment.TopEnd
     ) {
         FloatingActionButton(onClick = {
-            navController.navigate(Routes.Create.route)
+            val route1 = "create/0.0/0.0" // Asegúrate de tener el ID correcto aquí
+            navController.navigate(route1)
         }) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "Crear contenedor")
         }

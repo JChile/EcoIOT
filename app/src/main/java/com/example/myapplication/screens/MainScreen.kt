@@ -1,6 +1,7 @@
 package com.example.myapplication.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -80,8 +81,26 @@ fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, 
                 DetailScreen(deviceId, viewModel2)
             }
         }
-        composable(Routes.Create.route){
-            CreateContainer(viewModel3)
+        composable(
+            route = Routes.Create.route,
+            arguments = listOf(
+                navArgument("latitud") {
+                    type = NavType.FloatType
+                    defaultValue = 0.0f // Puedes establecer un valor predeterminado si es necesario
+                },
+                navArgument("longitud") {
+                    type = NavType.FloatType
+                    defaultValue = 0.0f // Puedes establecer un valor predeterminado si es necesario
+                },
+            )
+        ) {backStackEntry ->
+            // Lógica para recuperar los argumentos y pasarlos a la pantalla CreateContainer
+            val latitud = backStackEntry.arguments?.getFloat("latitud", 0.0f)
+            val longitud = backStackEntry.arguments?.getFloat("longitud", 0.0f)
+
+            Log.d("bbbbb", latitud.toString())
+            CreateContainer(viewModel3, latitud, longitud)
         }
+
     }
 }

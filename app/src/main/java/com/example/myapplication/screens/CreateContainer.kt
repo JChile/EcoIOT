@@ -8,17 +8,19 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.container.CreateViewData
 import com.example.myapplication.data.ContainerData
 
 @Composable
-fun CreateContainer(viewModel3: CreateViewData) {
+fun CreateContainer(viewModel3: CreateViewData, latitud: Float?, longitud: Float?) {
     var codigo by remember { mutableStateOf("") }
-    var latitud by remember { mutableStateOf("") }
-    var longitud by remember { mutableStateOf("") }
+    var latitud by remember { mutableStateOf(latitud.toString()) }
+    var longitud by remember { mutableStateOf(longitud.toString()) }
     var descripcion by remember { mutableStateOf("") }
+
 
     Column(
         modifier = Modifier
