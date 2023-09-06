@@ -3,23 +3,14 @@ package com.example.myapplication.screens
 import android.app.AlertDialog
 import android.content.Context
 import android.util.Log
-import android.widget.EditText
-import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,16 +19,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.SemanticsProperties.ImeAction
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.myapplication.container.CreateViewData
-import com.example.myapplication.navigation.Routes
-import com.example.myapplication.navigation.Routes.Home.title
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
@@ -64,7 +49,7 @@ fun MyMaps(navController: NavHostController, viewModel3: CreateViewData) {
 
     val mapData by rememberUpdatedState(viewModel3.containerDataList)
     viewModel3.getDataFromApi()
-    var lastLongClickPosition by remember { mutableStateOf(LatLng(0.0, 0.0)) }
+    var lastLongClickPosition by remember { mutableStateOf(initialCameraPosition) }
 
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
