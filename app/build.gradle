@@ -97,11 +97,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3"
     implementation "com.google.accompanist:accompanist-swiperefresh:0.27.0"
 
-    implementation 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.7.4'
-    implementation 'com.amazonaws:aws-android-sdk-core:2.7.4'
-
-    implementation 'com.google.maps.android:maps-compose:1.0.0'
+    implementation 'com.google.maps.android:maps-compose:2.11.4'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.7.1'
 
 }
