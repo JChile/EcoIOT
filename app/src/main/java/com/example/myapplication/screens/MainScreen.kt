@@ -20,13 +20,14 @@ import com.example.myapplication.R
 import com.example.myapplication.composables.NavBar
 import com.example.myapplication.container.ContainerViewData
 import com.example.myapplication.container.CreateViewData
+import com.example.myapplication.container.MapViewModel
 import com.example.myapplication.navigation.Routes
 import com.example.myapplication.navigation.Routes.*
 import com.example.myapplication.paging.PagingViewData
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(viewModel: PagingViewData, viewModel2: ContainerViewData, viewModel3: CreateViewData) {
+fun MainScreen(viewModel: PagingViewData, viewModel2: ContainerViewData, viewModel3: CreateViewData,  mapView: MapViewModel) {
     val navController = rememberNavController()
     val navigationsItems = listOf(
         Home,
@@ -45,7 +46,7 @@ fun MainScreen(viewModel: PagingViewData, viewModel2: ContainerViewData, viewMod
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxSize()
             )
-            NavigationHost(navController, viewModel, viewModel2, viewModel3)
+            NavigationHost(navController, viewModel, viewModel2, viewModel3,  mapView)
 
         }
     }
@@ -53,7 +54,7 @@ fun MainScreen(viewModel: PagingViewData, viewModel2: ContainerViewData, viewMod
 
 
 @Composable
-fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, viewModel2: ContainerViewData, viewModel3: CreateViewData){
+fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, viewModel2: ContainerViewData, viewModel3: CreateViewData, mapView: MapViewModel){
 
     NavHost(
         navController = navController,

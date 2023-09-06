@@ -51,12 +51,24 @@ fun NavBar(
                         || (isDetailScreen && screen == Routes.Register)
                         || (isCreateScreen && screen == Routes.Home),
                 onClick = {
-                    navController.navigate(screen.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                    if (screen.route != Routes.Home.route) {
+                        navController.navigate(screen.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
                         }
-                        launchSingleTop = true
+                    } else if (currentRoute != Routes.Home.route) {
+                        // Si intentas navegar a la pantalla de inicio desde una pantalla diferente,
+                        // pop solo una pantalla superior.
+                        navController.navigate(screen.route) {
+                            popUpTo(navController.graph.findStartDestination().id - 1) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                        }
                     }
+
                 }
             )
         }

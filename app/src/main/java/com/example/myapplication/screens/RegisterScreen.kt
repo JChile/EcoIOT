@@ -45,7 +45,9 @@ fun RegisterScreen(
 ) {
     
     Box(){
-        Column( verticalArrangement = Arrangement.Top,
+        Column(
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 30.dp),
@@ -53,8 +55,8 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(height = 30.dp))
             
             Text(
-                text = "Registros",
-                fontSize = 28.sp,
+                text = "Contenedores",
+                fontSize = 35.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
             )

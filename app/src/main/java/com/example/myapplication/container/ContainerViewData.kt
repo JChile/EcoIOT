@@ -34,7 +34,7 @@ class ContainerViewData @Inject constructor(
                 } catch (e: Exception) {
                     // Maneja las excepciones según tus necesidades
                 }
-                delay(500) // Espera 100 segundos antes de la próxima verificación
+                delay(250) // Espera 100 segundos antes de la próxima verificación
             }
         }
     }
