@@ -1,5 +1,6 @@
 package com.example.myapplication.screens
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,34 +19,32 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
-import com.example.myapplication.composables.LinearChart
 import com.example.myapplication.container.ContainerViewData
-import com.example.myapplication.controllers.MQTTmanager
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.collectAsState
 
+
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun DetailScreen(deviceId: String, viewModel2: ContainerViewData) {
 
-    val containerData by rememberUpdatedState(viewModel2.registerData)
+    val registerData = viewModel2.registerData.collectAsState()
 
-    LaunchedEffect(containerData) {
-        viewModel2.fetchDataFromApi(deviceId)
+    // Llama a la función para comenzar a recibir datos en tiempo real
+    val scope = rememberCoroutineScope()
+    scope.launch {
+        viewModel2.startPeriodicFetch(deviceId)
     }
-
 
     Box(
         modifier = Modifier
@@ -66,19 +65,18 @@ fun DetailScreen(deviceId: String, viewModel2: ContainerViewData) {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            if (containerData.value == null) {
-                // Muestra el CircularProgressIndicator mientras se carga
+            if (registerData == null) {
+                // Muestra el CircularProgressIndicator mientras se cargan los datos
                 CircularProgressIndicator(
                     modifier = Modifier
                         .size(50.dp)
                         .align(Alignment.CenterHorizontally)
                 )
-
             } else {
-                val volume = containerData.value?.device_data?.volume
+                // Los datos se han cargado, muestra el contenido
+                val volume = registerData.value?.device_data?.volume
                 Log.d("AAA", volume.toString())
 
-                // Contenido del contenedor
                 Column(
                     verticalArrangement = Arrangement.Top,
                     modifier = Modifier
@@ -119,4 +117,8 @@ fun DetailScreen(deviceId: String, viewModel2: ContainerViewData) {
             }
         }
     }
+
 }
+
+
+
