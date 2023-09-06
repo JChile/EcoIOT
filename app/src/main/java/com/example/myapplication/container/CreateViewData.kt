@@ -16,12 +16,30 @@ class CreateViewData @Inject constructor(
     private val api: CreateApiData
 ) : ViewModel() {
 
+    private val _containerDataList = MutableLiveData<List<ContainerData>>()
+    val containerDataList: LiveData<List<ContainerData>> = _containerDataList
+
+
+   init {
+       getDataFromApi()
+   }
     fun createDataFromApi(container: ContainerData) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 api.putData(container)
             } catch (e: Exception) {
+                // Manejar cualquier error que pueda ocurrir durante la solicitud PUT
+            }
+        }
+    }
 
+    fun getDataFromApi() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val data = api.getData()
+                _containerDataList.postValue(data)
+            } catch (e: Exception) {
+                // Manejar cualquier error que pueda ocurrir durante la solicitud GET
             }
         }
     }

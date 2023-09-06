@@ -17,6 +17,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,37 +28,53 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.SemanticsProperties.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.myapplication.container.CreateViewData
 import com.example.myapplication.navigation.Routes
 import com.example.myapplication.navigation.Routes.Home.title
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(navController: NavHostController, viewModel3: CreateViewData) {
     Box(
         modifier = Modifier.fillMaxSize()
     ){
-        MyMaps(navController)
+        MyMaps(navController, viewModel3)
     }
 }
 
 
 @Composable
-fun MyMaps(navController: NavHostController) {
+fun MyMaps(navController: NavHostController, viewModel3: CreateViewData) {
+
     val context = LocalContext.current // Agrega esta línea para obtener el contexto
     val initialCameraPosition = LatLng(-16.3988900,  -71.5350000)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(initialCameraPosition, 15f)
     }
+
+    var data = viewModel3.containerDataList.value
+
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
         cameraPositionState = cameraPositionState
     ) {
+        Marker(
+            title = "GAAA",
+            state = MarkerState(position = initialCameraPosition),
+            onInfoWindowClick = {
+                    marker ->
+                //navController.navigate(Routes.Detail.route)
+            }
+        )
 
     }
     Box(

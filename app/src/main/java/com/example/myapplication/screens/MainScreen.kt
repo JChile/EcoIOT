@@ -59,7 +59,7 @@ fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, 
         startDestination = Home.route
     ) {
         composable(Home.route){
-            HomeScreen(navController)
+            HomeScreen(navController, viewModel3)
         }
         composable(Register.route){
             RegisterScreen(viewModel, navController)
