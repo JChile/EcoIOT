@@ -62,7 +62,7 @@ fun LinearChart(
 ) {
 
     val spacing = 100f
-    val graphColor = Color.Cyan
+    val graphColor = Color.DarkGray
     val transparentGraphColor = remember { graphColor.copy(alpha = 0.5f) }
     val upperValue = 100 // Valor máximo en el eje Y
     val lowerValue = 0 // Valor mínimo en el eje Y
@@ -70,7 +70,7 @@ fun LinearChart(
 
     val textPaint = remember(density) {
         Paint().apply {
-            color = android.graphics.Color.WHITE
+            color = android.graphics.Color.BLACK
             textAlign = Paint.Align.CENTER
             textSize = density.run { 12.sp.toPx() }
         }

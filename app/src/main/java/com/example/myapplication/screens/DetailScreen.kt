@@ -20,6 +20,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 import com.example.myapplication.composables.LinearChart
 import com.example.myapplication.container.ContainerViewData
+import com.example.myapplication.controllers.MQTTmanager
 
 @Composable
 fun DetailScreen(deviceId: String, viewModel2: ContainerViewData) {
@@ -113,15 +116,6 @@ fun DetailScreen(deviceId: String, viewModel2: ContainerViewData) {
                         )
                     }
                 }
-
-                // LinearChart
-                LinearChart(
-                    data = listOf(
-                        Pair(6, 50.0), Pair(7, 60.0), Pair(8, 30.0)
-                    ), modifier = Modifier
-                        .fillMaxWidth()
-                        .height(350.dp)
-                )
             }
         }
     }
