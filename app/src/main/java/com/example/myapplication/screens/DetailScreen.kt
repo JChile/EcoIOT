@@ -7,14 +7,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -32,6 +35,7 @@ import com.example.myapplication.R
 import com.example.myapplication.container.ContainerViewData
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.text.style.TextAlign
 
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -89,33 +93,98 @@ fun DetailScreen(deviceId: String, viewModel2: ContainerViewData) {
                 ) {
                     Spacer(modifier = Modifier.height(height = 30.dp))
 
-                    Box(
-                        modifier = Modifier.fillMaxWidth()
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        Arrangement.Center
                     ) {
                         Text(
                             text = "Contenedor " + deviceId,
                             fontSize = 32.sp,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.align(Alignment.TopStart)
+                            textAlign = TextAlign.Center,
                         )
                     }
 
-                    Box(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        Icon(
-                            painter = painterResource(
-                                id = if (volume!! >= 100) R.drawable.removebg_preview_100
-                                else if (volume!! >= 75) R.drawable.removebg_preview_75
-                                else if (volume!! >= 50) R.drawable.removebg_preview_50
-                                else if (volume!! >= 25) R.drawable.removebg_preview_25
-                                else R.drawable.removebg_preview_0
-                            ),
-                            contentDescription = "Background Image",
-                            modifier = Modifier.size(300.dp),
-                            tint = Color.Unspecified
-                        )
+                    Column {
+                        Box(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    id = if (volume!! >= 100) R.drawable.removebg_preview_100
+                                    else if (volume!! >= 75) R.drawable.removebg_preview_75
+                                    else if (volume!! >= 50) R.drawable.removebg_preview_50
+                                    else if (volume!! >= 25) R.drawable.removebg_preview_25
+                                    else R.drawable.removebg_preview_0
+                                ),
+                                contentDescription = "Background Image",
+                                modifier = Modifier.size(300.dp),
+                                tint = Color.Unspecified
+                            )
+                        }
+                        Column (
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+
+                            Card(
+                                modifier = Modifier
+                                    .width(280.dp)
+                                    .padding(16.dp),
+                                backgroundColor = Color.Black,
+                                elevation = 8.dp
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(16.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = "IDENTIFICADOR:",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White
+                                    )
+                                    Text(
+                                        text = id.toString(),
+                                        fontSize = 16.sp,
+                                        textAlign = TextAlign.Center,
+                                        color = Color.White
+
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = "FECHA DE CÁLCULO:",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White
+                                    )
+                                    Text(
+                                        text = fecha.toString(),
+                                        fontSize = 16.sp,
+                                        textAlign = TextAlign.Center,
+                                        color = Color.White
+
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = "HORA DE CÁLCULO:",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White
+                                    )
+                                    Text(
+                                        text = hora.toString(),
+                                        fontSize = 16.sp,
+                                        textAlign = TextAlign.Center,
+                                        color = Color.White
+
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }
