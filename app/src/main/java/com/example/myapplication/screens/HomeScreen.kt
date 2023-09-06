@@ -26,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.SemanticsProperties.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.example.myapplication.navigation.Routes
 import com.example.myapplication.navigation.Routes.Home.title
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -34,17 +36,17 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController) {
     Box(
         modifier = Modifier.fillMaxSize()
     ){
-        MyMaps()
+        MyMaps(navController)
     }
 }
 
 
 @Composable
-fun MyMaps() {
+fun MyMaps(navController: NavHostController) {
     val context = LocalContext.current // Agrega esta línea para obtener el contexto
     val initialCameraPosition = LatLng(-16.3988900,  -71.5350000)
     val cameraPositionState = rememberCameraPositionState {
@@ -62,7 +64,9 @@ fun MyMaps() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopEnd
     ) {
-        FloatingActionButton(onClick = { /* Tus acciones */ }) {
+        FloatingActionButton(onClick = {
+            navController.navigate(Routes.Create.route)
+        }) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "Crear contenedor")
         }
     }

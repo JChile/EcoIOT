@@ -12,5 +12,7 @@ sealed class Routes (
     object List: Routes("list", title = "Lista", icon = R.drawable.baseline_view)
 
     object Detail: Routes("detail/{deviceId}", title = "Detalle")
+    object Create: Routes("create", title = "Crear")
+
 
 }

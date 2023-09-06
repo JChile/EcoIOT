@@ -58,7 +58,7 @@ fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, 
         startDestination = Home.route
     ) {
         composable(Home.route){
-            HomeScreen()
+            HomeScreen(navController)
         }
         composable(Register.route){
             RegisterScreen(viewModel, navController)
@@ -78,6 +78,9 @@ fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, 
             deviceId?.let {
                 DetailScreen(deviceId, viewModel2)
             }
+        }
+        composable(Routes.Create.route){
+            CreateContainer()
         }
     }
 }
