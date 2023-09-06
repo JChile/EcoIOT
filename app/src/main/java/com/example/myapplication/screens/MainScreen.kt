@@ -18,13 +18,14 @@ import androidx.navigation.navArgument
 import com.example.myapplication.R
 import com.example.myapplication.composables.NavBar
 import com.example.myapplication.container.ContainerViewData
+import com.example.myapplication.container.CreateViewData
 import com.example.myapplication.navigation.Routes
 import com.example.myapplication.navigation.Routes.*
 import com.example.myapplication.paging.PagingViewData
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(viewModel: PagingViewData, viewModel2: ContainerViewData) {
+fun MainScreen(viewModel: PagingViewData, viewModel2: ContainerViewData, viewModel3: CreateViewData) {
     val navController = rememberNavController()
     val navigationsItems = listOf(
         Home,
@@ -43,7 +44,7 @@ fun MainScreen(viewModel: PagingViewData, viewModel2: ContainerViewData) {
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxSize()
             )
-            NavigationHost(navController, viewModel, viewModel2)
+            NavigationHost(navController, viewModel, viewModel2, viewModel3)
 
         }
     }
@@ -51,7 +52,7 @@ fun MainScreen(viewModel: PagingViewData, viewModel2: ContainerViewData) {
 
 
 @Composable
-fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, viewModel2: ContainerViewData){
+fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, viewModel2: ContainerViewData, viewModel3: CreateViewData){
 
     NavHost(
         navController = navController,
@@ -80,7 +81,7 @@ fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, 
             }
         }
         composable(Routes.Create.route){
-            CreateContainer()
+            CreateContainer(viewModel3)
         }
     }
 }

@@ -5,6 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import com.example.myapplication.container.ContainerApiData
+import com.example.myapplication.container.CreateApiData
 import com.example.myapplication.data.ContainerData
 import com.example.myapplication.paging.PagingApiData
 import com.example.myapplication.paging.PagingGetData
@@ -55,6 +56,16 @@ object AppModule {
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create(ContainerApiData::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCreateApi(): CreateApiData {
+        return Retrofit.Builder()
+            .baseUrl(CreateApiData.BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+            .create(CreateApiData::class.java)
     }
 
 

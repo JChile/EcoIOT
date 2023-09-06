@@ -27,6 +27,7 @@ fun NavBar(
 ) {
     val currentRoute = CurrentRoute(navController)
     val isDetailScreen = currentRoute == Routes.Detail.route
+    val isCreateScreen = currentRoute == Routes.Create.route
 
     BottomNavigation(
         backgroundColor = Color.Black,
@@ -40,10 +41,15 @@ fun NavBar(
                     Icon(
                         painter = painterResource(id = screen.icon!!),
                         contentDescription = "icon",
-                        tint = if ((currentRoute == screen.route) || (isDetailScreen && screen == Routes.Register)) Color.Green else Color.White
+                        tint = if ((currentRoute == screen.route)
+                            || (isDetailScreen && screen == Routes.Register)
+                            || (isCreateScreen && screen == Routes.Home))
+                            Color.Green else Color.White
                     )
                 },
-                selected = currentRoute == screen.route || (isDetailScreen && screen == Routes.Register),
+                selected = currentRoute == screen.route
+                        || (isDetailScreen && screen == Routes.Register)
+                        || (isCreateScreen && screen == Routes.Home),
                 onClick = {
                     navController.navigate(screen.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
