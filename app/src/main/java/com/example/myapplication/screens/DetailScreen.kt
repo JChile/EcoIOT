@@ -75,6 +75,10 @@ fun DetailScreen(deviceId: String, viewModel2: ContainerViewData) {
             } else {
                 // Los datos se han cargado, muestra el contenido
                 val volume = registerData.value?.device_data?.volume
+                val id = registerData.value?.device_data?.id
+                val fecha = registerData.value?.device_data?.fecha
+                val hora = registerData.value?.device_data?.hora
+
                 Log.d("AAA", volume.toString())
 
                 Column(
