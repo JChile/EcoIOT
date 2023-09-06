@@ -10,9 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.myapplication.R
 import com.example.myapplication.composables.NavBar
 import com.example.myapplication.navigation.Routes
@@ -58,10 +60,23 @@ fun NavigationHost(navController: NavHostController, viewModel: PagingViewData){
             HomeScreen()
         }
         composable(Register.route){
-            RegisterScreen(viewModel)
+            RegisterScreen(viewModel, navController)
         }
         composable(Routes.List.route){
             ListScreen()
+        }
+        composable(
+            route = Routes.Detail.route,
+            arguments = listOf(
+                navArgument("deviceId") {
+                    type = NavType.StringType
+                }
+            )
+        ) { backStackEntry ->
+            val deviceId = backStackEntry.arguments?.getString("deviceId")
+            deviceId?.let {
+                DetailScreen(deviceId)
+            }
         }
     }
 }

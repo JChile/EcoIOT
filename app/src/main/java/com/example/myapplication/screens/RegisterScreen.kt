@@ -26,17 +26,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.paging.LoadState
 import androidx.paging.compose.items
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.myapplication.composables.PagingObject
+import com.example.myapplication.navigation.Routes
 import com.example.myapplication.paging.PagingViewData
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 fun RegisterScreen(
-    viewModel: PagingViewData
+    viewModel: PagingViewData,
+    navController: NavController
 ) {
     
     Box(){
@@ -97,7 +102,7 @@ fun RegisterScreen(
                             ) {
                             items(data) { pagingObject ->
                                 if (pagingObject != null) {
-                                    PagingObject(pagingObject)
+                                    PagingObject(pagingObject, navController)
                                 }
                             }
 
