@@ -10,10 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.container.CreateViewData
+import com.example.myapplication.data.ContainerData
 
-@Preview
 @Composable
-fun CreateContainer() {
+fun CreateContainer(viewModel3: CreateViewData) {
     var codigo by remember { mutableStateOf("") }
     var latitud by remember { mutableStateOf("") }
     var longitud by remember { mutableStateOf("") }
@@ -64,8 +65,14 @@ fun CreateContainer() {
 
         Button(
             onClick = {
-                // Realiza alguna acción cuando se envíe el formulario
-                // Por ejemplo, guarda los datos en una base de datos
+                val containerData = ContainerData(
+                    device_id = codigo.toIntOrNull() ?: 0,
+                    latitud = latitud.toDoubleOrNull() ?: 0.0,
+                    longitud = longitud.toDoubleOrNull() ?: 0.0,
+                    descripcion = descripcion
+                )
+                viewModel3.createDataFromApi(containerData)
+
             },
             modifier = Modifier.fillMaxWidth()
         ) {

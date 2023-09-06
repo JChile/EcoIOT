@@ -10,18 +10,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.myapplication.R
 import com.example.myapplication.composables.NavBar
+import com.example.myapplication.container.ContainerViewData
+import com.example.myapplication.container.CreateViewData
 import com.example.myapplication.navigation.Routes
 import com.example.myapplication.navigation.Routes.*
 import com.example.myapplication.paging.PagingViewData
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(viewModel: PagingViewData) {
+fun MainScreen(viewModel: PagingViewData, viewModel2: ContainerViewData, viewModel3: CreateViewData) {
     val navController = rememberNavController()
     val navigationsItems = listOf(
         Home,
@@ -40,7 +44,7 @@ fun MainScreen(viewModel: PagingViewData) {
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxSize()
             )
-            NavigationHost(navController, viewModel)
+            NavigationHost(navController, viewModel, viewModel2, viewModel3)
 
         }
     }
@@ -48,20 +52,36 @@ fun MainScreen(viewModel: PagingViewData) {
 
 
 @Composable
-fun NavigationHost(navController: NavHostController, viewModel: PagingViewData){
+fun NavigationHost(navController: NavHostController, viewModel: PagingViewData, viewModel2: ContainerViewData, viewModel3: CreateViewData){
 
     NavHost(
         navController = navController,
         startDestination = Home.route
     ) {
         composable(Home.route){
-            HomeScreen()
+            HomeScreen(navController)
         }
         composable(Register.route){
-            RegisterScreen(viewModel)
+            RegisterScreen(viewModel, navController)
         }
         composable(Routes.List.route){
             ListScreen()
+        }
+        composable(
+            route = Routes.Detail.route,
+            arguments = listOf(
+                navArgument("deviceId") {
+                    type = NavType.StringType
+                }
+            )
+        ) { backStackEntry ->
+            val deviceId = backStackEntry.arguments?.getString("deviceId")
+            deviceId?.let {
+                DetailScreen(deviceId, viewModel2)
+            }
+        }
+        composable(Routes.Create.route){
+            CreateContainer(viewModel3)
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.myapplication.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,20 +24,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.myapplication.R
 import com.example.myapplication.data.ContainerData
+import com.example.myapplication.navigation.Routes
 
 @Composable
-fun PagingObject(paggingobject: ContainerData) {
+fun PagingObject(pagingobject: ContainerData, navController: NavController) {
     Card(
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.Black,
             contentColor = Color.White,
         ) ,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                val route = "detail/${pagingobject.device_id}" // Asegúrate de tener el ID correcto aquí
+                navController.navigate(route)
+            }
 
     ) {
+
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -53,7 +62,7 @@ fun PagingObject(paggingobject: ContainerData) {
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
-                        text = "exampleCode",
+                        text = "${pagingobject.device_id}",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.LightGray
@@ -62,12 +71,12 @@ fun PagingObject(paggingobject: ContainerData) {
                 Spacer(modifier = Modifier.height(5.dp))
                 Row() {
                     Text(
-                        text = "Ubicacion: ",
+                        text = "Latitud: ",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
-                        text = "exampleLocation",
+                        text = "${pagingobject.latitud}",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.LightGray
@@ -78,12 +87,12 @@ fun PagingObject(paggingobject: ContainerData) {
 
                 Row() {
                     Text(
-                        text = "Dato: ",
+                        text = "Latitud: ",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
-                        text = "exampleData",
+                        text = " ${pagingobject.longitud}",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.LightGray
