@@ -1,7 +1,5 @@
 package com.example.myapplication.screens
 
-import HomeScreen
-import RegisterScreen
 import android.annotation.SuppressLint
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
