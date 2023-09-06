@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.myapplication"
-        minSdk 22
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -103,5 +103,9 @@ dependencies {
     implementation 'com.google.maps.android:maps-compose:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.7.1'
+
+
+    // librerias graficas:
+    // implementation "com.github.tehras:charts:0.2.4-alpha-1"
 
 }
